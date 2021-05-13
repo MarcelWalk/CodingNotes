@@ -83,7 +83,7 @@ function MyIntroduction(){
 }
 
 ReactDOM.render(
-    <My Introduction />,
+    <MyIntroduction />,
     document.getElementbyId("root")
 )
 ```
