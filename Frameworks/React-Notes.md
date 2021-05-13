@@ -1,4 +1,4 @@
-# React (JS/TS)
+# React (JS)
 
 ## Why React?
 - Fast (Because of virtual DOM)
@@ -194,4 +194,162 @@ function MyIntroduction(){
 export default MyIntroduction
 ```
 
-##
+## Props
+React props are comparable with the `src` inside a `img` tag (`<img src=""/>`) and are used to alter information in a component. For example we could have a title prop that will inserted as a heading in the component.
+
+```JS
+function Contact(props){
+    return (
+        <div>
+            <h3>{props.name}</h3>
+            <p>Phone: {props.phone}</p>
+            <p>Email: {props.email}</p>
+        </div>
+    )
+}
+
+ReactDOM.render(
+    <div>
+        <Contact 
+            name="Markus Mueller"  
+            phone="1234 123456"
+            email="m.mueller@muellers.at"
+        />
+        
+        <Contact 
+            name="Eva Eggenberg" 
+            phone="1235 123456"
+            email="eva.egg@eggenberg.org"
+        />
+        
+        <Contact 
+            name="Marcel Walk" 
+            phone="1236 123456"
+            email="m.walk@nyasaki.cloud"
+        />
+        
+        <Contact 
+            name="John Doe"
+            phone="1237 123456"
+            email="jdoe@mail.cli"
+        />
+    </div>,
+    document.getElementById("root")
+)
+```
+
+the function parmeter `props` is a `object` that contains all properties
+we define when using the component (in the render method in this case)
+
+## Class Components
+We can use class components to further clean up our code, they work 
+similar to function based components. It requires a `render method`, this 
+method will act like our function so we can copy paste the return 
+statement from out functions directly into our render method.
+
+```JS
+class App extends React.Component{
+    render(){
+        return (
+            <h1>Im in a class component</h1>
+        )
+    }
+}
+
+export default MyIntroduction
+```
+
+If we have `props` we have to add the `this` keyword before the object 
+name, it is not required to add parameters to the render method
+
+```JS
+class App extends React.Component{
+    render(){
+        return (
+            <h1>Hello, {this.props.username}</h1>
+        )
+    }
+}
+
+export default MyIntroduction
+```
+
+## React States
+State is the data the component maintains, in contrast to the `props`, the 
+data can be changed by the component. States only can be used in 
+`class based components`
+
+In order to maintain its data using state we need a constructor method, and initialize the state object.
+
+```JS
+class App extends React.Component{
+
+    constructor(){
+        super()
+
+        //Initialize our state object
+        this.state = {}
+    }
+
+    render(){
+        return (
+            <h1>Hello, {this.props.username}</h1>
+        )
+    }
+}
+
+export default MyIntroduction
+```
+
+Changing the state can be achieved by using the `setState` method.
+If we want use `setState` we need to bind the function to the class.
+
+```JS
+[...]
+    constructor() {
+        super()
+        this.state = {
+            count: 0
+        }
+        this.handleClick = this.handleClick.bind(this)
+    }
+    
+    handleClick() {
+        this.setState({ count: 1 })
+    }
+[...]
+```
+
+We can replace the value completely if we don't care what its been before
+```JS
+handleClick() {
+        this.setState({ count: 1 })
+}
+```
+
+Or we can pass a function to `setState` if we need the previous state
+```JS
+handleClick() {
+    this.setState(prevState => {
+        return {
+            count: prevState.count + 1
+        }
+    })
+}
+```
+
+## Handling Events
+Handling events is similar to JS, but we need to use `camelCase` starting with a lowercase character
+
+```JS
+function App() {
+    return (
+        <div>
+            <img src="https://www.fillmurray.com/200/100"/>
+            <br />
+            <br />
+            <button onClick={handleClick}>Click me</button>
+        </div>
+    )
+}
+```
